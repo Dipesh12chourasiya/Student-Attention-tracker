@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Camera Preview -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Face detection overlay (on top of PreviewView) -->
+    <com.example.irlstudentattentiontracker.FaceOverlay
+        android:id="@+id/faceOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Stats TextView (overlays both) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:background="#80000000"
+            android:padding="4dp"
+            android:text="Total Face: 0 | Total Frames: 0 "
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/timer_bg"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="  Attention Score:"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvAttentivePercents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:text="0%"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvStatsFaceEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-20dp"
+            android:background="#80000000"
+            android:padding="5dp"
+            android:text="Smile: 0%\nLeft Eye:0%\nRight Eye: 0%"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <!--    <Button-->
+    <!--        android:visibility="visible"-->
+    <!--        android:id="@+id/btnViewReport"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="📊 View Session Report"-->
+    <!--        android:layout_gravity="bottom|end"-->
+    <!--        android:layout_marginBottom="70dp"-->
+    <!--        android:backgroundTint="#2DB1A3"-->
+    <!--        android:layout_marginEnd="12dp"/>-->
+
+    <Button
+        android:id="@+id/btnSwitchCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/toolbarBg"
+        android:text="Switch Camera" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="70dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp">
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="7dp"
+            android:background="@drawable/timer_bg"
+            android:drawableStart="@drawable/baseline_timer_24"
+            android:drawableTint="@color/white"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text=" 00:00"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            android:layout_marginEnd="20dp">
+
+            <Button
+                android:id="@+id/btnStartSession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#4CAF50"
+                android:text="Start Session"
+                android:layout_marginStart="8dp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnEndSession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F44336"
+                android:text="End Session"
+                android:layout_marginStart="8dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
