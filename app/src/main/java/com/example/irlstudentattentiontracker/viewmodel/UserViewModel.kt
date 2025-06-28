@@ -51,6 +51,12 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
 
 
 
+
+
+
+
+
+
     // firebase
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()

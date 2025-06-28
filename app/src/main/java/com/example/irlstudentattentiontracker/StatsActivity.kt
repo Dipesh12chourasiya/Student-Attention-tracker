@@ -103,7 +103,7 @@ class StatsActivity : AppCompatActivity() {
 
 
         val colors = listOf(
-            resources.getColor(R.color.chart_color_attentive), // e.g., #4CAF50 (Green)
+            resources.getColor(R.color.chart_acolor_attentive), // e.g., #4CAF50 (Green)
             resources.getColor(R.color.chart_color_inattentive) // e.g., #F44336 (Red)
 
         )

@@ -14,6 +14,6 @@
 
     <color name="toolbarBg">#37B8F4</color>
 
-    <color name="chart_color_attentive">#2196F3</color>
+    <color name="chart_acolor_attentive">#2196F3</color>
     <color name="chart_color_inattentive">#FF9800</color>
 </resources>

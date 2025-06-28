@@ -100,7 +100,7 @@ class SessionDetailActivity : AppCompatActivity() {
         // Using a more subdued or complementary palette often looks more professional.
         // Example: Defining custom colors. Make sure these colors are defined in your colors.xml
         val colors = listOf(
-            resources.getColor(R.color.chart_color_attentive), // e.g., #4CAF50 (Green)
+            resources.getColor(R.color.chart_acolor_attentive), // e.g., #4CAF50 (Green)
             resources.getColor(R.color.chart_color_inattentive) // e.g., #F44336 (Red)
             // Or a more neutral palette
             // resources.getColor(R.color.pieChartBlue), // #2196F3
