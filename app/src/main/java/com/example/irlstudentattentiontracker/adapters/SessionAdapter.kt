@@ -5,41 +5,39 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.detectfaceandexpression.models.SessionData
 import com.example.irlstudentattentiontracker.databinding.ItemSessionCardBinding
-import com.example.irlstudentattentiontracker.roomDB.SessionEntity
 
 
-class SessionAdapter(private val onItemClick: (SessionEntity) -> Unit,
-                     private val onItemLongClick: (SessionEntity) -> Unit
-                     ) : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
+class SessionAdapter(
+    private val onItemClick: (SessionData) -> Unit,
+    private val onItemLongClick: (SessionData) -> Unit
+) : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
 
-    val diffUtil = object : DiffUtil.ItemCallback<SessionEntity>(){ // pasing a dataclass
-
-        override fun areItemsTheSame(oldItem: SessionEntity, newItem: SessionEntity): Boolean {
-            return oldItem.id == newItem.id
+    private val diffUtil = object : DiffUtil.ItemCallback<SessionData>() {
+        override fun areItemsTheSame(oldItem: SessionData, newItem: SessionData): Boolean {
+            return oldItem.sessionId == newItem.sessionId
         }
 
-        override fun areContentsTheSame(oldItem: SessionEntity, newItem: SessionEntity): Boolean {
+        override fun areContentsTheSame(oldItem: SessionData, newItem: SessionData): Boolean {
             return oldItem == newItem
         }
     }
 
     val differ = AsyncListDiffer(this, diffUtil)
 
-    inner class SessionViewHolder(val binding: ItemSessionCardBinding) :
+    inner class SessionViewHolder(private val binding: ItemSessionCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(session: SessionEntity) {
+        fun bind(session: SessionData) {
             binding.tvSessionName.text = session.title
             binding.tvSessionDate.text = session.dateTime
             binding.tvSessionDuration.text = session.duration
 
-            // Long press to delete
             binding.root.setOnLongClickListener {
                 onItemLongClick(session)
                 true
             }
 
-            // Short click → open detail
             binding.root.setOnClickListener {
                 onItemClick(session)
             }

@@ -6,6 +6,7 @@ import android.content.Intent
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.detectfaceandexpression.adapters.SessionAdapter
+import com.example.detectfaceandexpression.models.SessionData
 import com.example.irlstudentattentiontracker.databinding.ActivityHomeBinding
 import com.example.irlstudentattentiontracker.roomDB.SessionEntity
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
@@ -32,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val viewModel: UserViewModel by viewModels()
     private lateinit var adapter: SessionAdapter
-    private var sessionsList: List<SessionEntity> = emptyList()
+    private var sessionsList: List<SessionData> = emptyList()
 
     /// ON create method
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +58,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         // to setup the logic of calender to highlight old days
-        viewModel.getAllSessions().onEach { sessionList ->
+        viewModel.getAllSessionsForUser().onEach { sessionList :List<SessionData> ->
             val sessionCalendarDays = extractSessionDatesToCalendarDays(sessionList)
             val decorator = SessionDayDecorator(sessionCalendarDays, this) // 'this' is context
             binding.calendarView.addDecorator(decorator)
@@ -75,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun extractSessionDatesToCalendarDays(sessions: List<SessionEntity>): HashSet<CalendarDay> {
+    fun extractSessionDatesToCalendarDays(sessions: List<SessionData>): HashSet<CalendarDay> {
         val formatter = SimpleDateFormat("dd MMMM yyyy, hh:mm a", Locale.getDefault())
         val calendarDates = HashSet<CalendarDay>()
 
@@ -93,12 +95,13 @@ class HomeActivity : AppCompatActivity() {
         return calendarDates
     }
 
-    private fun getAllSessions(context: Context) {
 
+
+    private fun getAllSessions(context: Context) {
         adapter = SessionAdapter(
             onItemClick = { session ->
                 val intent = Intent(this, SessionDetailActivity::class.java)
-                intent.putExtra("session_data", session)
+                intent.putExtra("session_data", session) // session must be Serializable or Parcelable
                 startActivity(intent)
             },
             onItemLongClick = { session ->
@@ -106,23 +109,23 @@ class HomeActivity : AppCompatActivity() {
                     .setTitle("Delete Session")
                     .setMessage("Are you sure you want to delete \"${session.title}\"?")
                     .setPositiveButton("Yes") { _, _ ->
-                        viewModel.deleteSession(session)
+                        viewModel.deleteSessionFromFb(session)
                     }
                     .setNegativeButton("No", null)
                     .show()
             }
         )
-        binding.rvSessions.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.getAllSessions().collect { sessionList ->
-
+            viewModel.getAllSessionsForUser().collect { sessionList ->
                 adapter.differ.submitList(sessionList.reversed())
-
-                binding.rvSessions.adapter = adapter
-                binding.rvSessions.layoutManager = LinearLayoutManager(context)
+                binding.tvEmptyState.visibility = if (sessionList.isEmpty()) View.VISIBLE else View.GONE
+                Log.d("sessons","${sessionsList.size} Size is")
             }
         }
+
+        binding.rvSessions.adapter = adapter
+        binding.rvSessions.layoutManager = LinearLayoutManager(context)
     }
 
 
@@ -141,7 +144,7 @@ class HomeActivity : AppCompatActivity() {
             .setMessage("This will delete all recorded sessions. Are you sure?")
             .setPositiveButton("Yes") { _, _ ->
                 lifecycleScope.launch {
-                    viewModel.deleteAllSessions()
+                    viewModel.deleteAllSessionsFromFirebase()
                 }
             }
             .setNegativeButton("Cancel", null)

@@ -26,5 +26,16 @@ object Utils {
         return sdf.format(Date())
     }
 
+    fun formatTimeOnly(timestamp: Long): String {
+        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        return sdf.format(Date(timestamp))
+    }
+
+    fun formatFullDateTime(timestamp: Long): String {
+        val sdf = SimpleDateFormat("dd MMMM yyyy, hh:mm a", Locale.getDefault())
+        return sdf.format(Date(timestamp))
+    }
+
+
 
 }

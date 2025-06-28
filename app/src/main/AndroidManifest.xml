@@ -48,7 +48,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.detectfaceandexpression.models.SessionData
 import com.example.irlstudentattentiontracker.databinding.ActivityStatsBinding
 import com.example.irlstudentattentiontracker.roomDB.SessionEntity
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.google.firebase.database.FirebaseDatabase
 
 
 class StatsActivity : AppCompatActivity() {
@@ -44,12 +46,20 @@ class StatsActivity : AppCompatActivity() {
         val sessionDate = intent.getStringExtra("sessionTimestamp") ?: "N/A"
         val totalFrames = intent.getIntExtra("totalFrames",0)
 
+        val startTime = intent.getStringExtra("startTime")
+        val endTime = intent.getStringExtra("endTime")
+        val sessionTimestamp = intent.getStringExtra("sessionTimestamp")
+
+
         binding.tvTotalFaces.text = "Total Faces: $totalFaces"
         binding.tvAttentivePercent.text = "Attentive: $attentionPercent%"
         binding.tvSessionDuration.text = "Duration: $sessionDuration"
         binding.tvSessionDate.text = " $sessionDate"
+        binding.tvStartTime.text = "Start Time: $startTime"
+        binding.tvEndTime.text = "End Time: $endTime"
 
         setupPieChart(attentiveCount, totalFrames - attentiveCount)
+
 
         binding.btnSave.setOnClickListener {
             val sessionName = binding.etSessionName.text.toString().trim()
@@ -60,30 +70,30 @@ class StatsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val session = SessionEntity(
+            val session = SessionData(
+                userId = viewModel.getCurrentUserID(),
                 title = sessionName,
-                dateTime = sessionDate,         // You already have this
-                duration = sessionDuration,     // Format: "3m 25s" or similar
+                dateTime = sessionDate,
+                duration = sessionDuration,
+                startTime = startTime!!, // You'll need to pass this from MainActivity
+                endTime = endTime!!, // Add helper to get current time if needed
                 attentionPercent = attentionPercent,
                 totalFaces = totalFaces,
                 totalFrames = totalFrames,
                 inattentiveCount = totalFrames - attentiveCount,
                 attentiveCount = attentiveCount,
-                maxInattentiveStreak = 0,
                 notes = if (note.isNotEmpty()) note else null
             )
 
-            viewModel.saveSession(session)
+            viewModel.saveSessionToFirebase(session)
+
             binding.etSessionName.setText("")
             binding.etAddNote.setText("")
 
-            binding.etSessionName.setText(session.title)
-
             Toast.makeText(this, "Session saved!", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, HomeActivity::class.java))
         }
+
     }
 
 

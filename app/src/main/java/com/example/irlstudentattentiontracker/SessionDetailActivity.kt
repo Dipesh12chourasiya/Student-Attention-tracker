@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.detectfaceandexpression.models.SessionData
 import com.example.irlstudentattentiontracker.databinding.ActivitySessionDetailBinding
 import com.example.irlstudentattentiontracker.roomDB.SessionEntity
 import com.github.mikephil.charting.charts.PieChart
@@ -29,7 +30,7 @@ class SessionDetailActivity : AppCompatActivity() {
         }
 
         // Get session data from intent
-        val session = intent.getParcelableExtra<SessionEntity>("session_data")
+        val session = intent.getParcelableExtra<SessionData>("session_data")
 
         session?.let {
             binding.toolbar.title = it.title
@@ -38,6 +39,8 @@ class SessionDetailActivity : AppCompatActivity() {
             binding.tvTotalFaces.text = "Total Faces: ${it.totalFaces}"
             binding.tvTotalFrames.text = "Total Frames: ${it.totalFrames}"
             binding.tvAttentivePercent.text = "Attentive: ${it.attentionPercent}%"
+            binding.tvStartTime.text = "Start Time: ${it.startTime}"
+            binding.tvEndTime.text = "End Time: ${it.endTime}"
 
             val inattentivePercent = 100 - it.attentionPercent
             binding.tvInAttentivePercent.text = "Inattentive: $inattentivePercent%"
@@ -53,7 +56,7 @@ class SessionDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun shareSession(session: SessionEntity) {
+    private fun shareSession(session: SessionData) {
 
         session?.let {
             val shareText = """
@@ -61,6 +64,8 @@ class SessionDetailActivity : AppCompatActivity() {
             
             📝 Title: ${it.title}
             📅 Date: ${it.dateTime}
+            Start Time: ${it.startTime}
+            End Time: ${it.endTime}
             ⏱ Duration: ${it.duration}
             
             👥 Total Faces: ${it.totalFaces}

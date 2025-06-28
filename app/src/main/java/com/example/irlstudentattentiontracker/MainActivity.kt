@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     private val CAMERA_PERMISSION_CODE = 101
 
+    var sessionTimestamp = ""
+
     private val timerRunnable = object : Runnable {
         override fun run() {
             val elapsed = System.currentTimeMillis() - sessionStartTime
@@ -58,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("Track", "Main started")
 
         checkAndRequestCameraPermission()
 
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnStartSession.setOnClickListener {
             isSessionRunning = true
             sessionStartTime = System.currentTimeMillis()
+            sessionTimestamp = Utils.formatFullDateTime(sessionStartTime) // Current Date and Time
+
             handler.post(timerRunnable)
 
             binding.btnStartSession.visibility = View.GONE
@@ -89,20 +92,29 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnEndSession.setOnClickListener {
             isSessionRunning = false
-            val durationMillis = System.currentTimeMillis() - sessionStartTime
+
+            val sessionEndTime = System.currentTimeMillis()
+            val durationMillis = sessionEndTime - sessionStartTime
+
             val formattedDuration = Utils.formatDuration(durationMillis)
-            val sessionTimestamp = Utils.getCurrentDateTime()
+            val formattedStartTime = Utils.formatTimeOnly(sessionStartTime)
+            val formattedEndTime = Utils.formatTimeOnly(sessionEndTime)
+             // e.g., "26 June 2025, 03:00 PM"
 
             val intent = Intent(this, StatsActivity::class.java).apply {
                 putExtra("totalFaces", totalFaces)
                 putExtra("attentiveCount", attentiveCount)
                 putExtra("attentionPercent", percentAttentive)
                 putExtra("sessionDuration", formattedDuration)
-                putExtra("sessionTimestamp", sessionTimestamp)
+                putExtra("startTime", formattedStartTime)
+                putExtra("endTime", formattedEndTime)
+                putExtra("sessionTimestamp", sessionTimestamp) // Current date and time
                 putExtra("totalFrames", attentiveCount + inattentiveCount)
             }
 
             startActivity(intent)
+
+
 
             binding.btnStartSession.visibility = View.VISIBLE
             binding.btnEndSession.visibility = View.GONE

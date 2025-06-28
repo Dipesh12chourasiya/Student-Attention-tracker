@@ -2,21 +2,19 @@ package com.example.irlstudentattentiontracker
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.detectfaceandexpression.adapters.SessionAdapter
 import com.example.irlstudentattentiontracker.databinding.ActivitySessionsOnDateBinding
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
+
+import com.example.detectfaceandexpression.adapters.SessionAdapter
+import java.util.*
 
 class SessionsOnDateActivity : AppCompatActivity() {
     private val viewModel: UserViewModel by viewModels()
@@ -29,13 +27,12 @@ class SessionsOnDateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val selectedDate = intent.getStringExtra("selectedDate")?.trim() ?: ""
-
         binding.dateOfNow.text = selectedDate
 
         adapter = SessionAdapter(
             onItemClick = { session ->
                 val intent = Intent(this, SessionDetailActivity::class.java)
-                intent.putExtra("session_data", session)
+                intent.putExtra("session_data", session) // session must be Serializable or Parcelable
                 startActivity(intent)
             },
             onItemLongClick = { session ->
@@ -43,17 +40,19 @@ class SessionsOnDateActivity : AppCompatActivity() {
                     .setTitle("Delete Session")
                     .setMessage("Are you sure you want to delete \"${session.title}\"?")
                     .setPositiveButton("Yes") { _, _ ->
-                        viewModel.deleteSession(session)
+                        viewModel.deleteSessionFromFb(session)
                     }
                     .setNegativeButton("No", null)
                     .show()
             }
         )
 
-        // Now collect the filtered list
-        lifecycleScope.launch {
-            viewModel.getAllSessions().collect { allSessions ->
+        binding.rvSessions.layoutManager = LinearLayoutManager(this)
+        binding.rvSessions.adapter = adapter
 
+        // Get all sessions and filter them by date
+        lifecycleScope.launch {
+            viewModel.getAllSessionsForUser().collect { allSessions ->
                 val formatterFull = SimpleDateFormat("dd MMMM yyyy, hh:mm a", Locale.getDefault())
                 val formatterDateOnly = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
 
@@ -67,12 +66,8 @@ class SessionsOnDateActivity : AppCompatActivity() {
                     }
                 }
 
-                adapter.differ.submitList(filtered.reversed()) // ✅ Use the AsyncListDiffer's submitList
+                adapter.differ.submitList(filtered.reversed())
             }
         }
-
-        binding.rvSessions.adapter = adapter
-        binding.rvSessions.layoutManager = LinearLayoutManager(this)
-
     }
 }
