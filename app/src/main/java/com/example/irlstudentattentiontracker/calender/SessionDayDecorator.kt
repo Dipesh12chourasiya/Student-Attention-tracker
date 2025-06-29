@@ -19,8 +19,12 @@ class SessionDayDecorator(
     }
 
     override fun decorate(view: DayViewFacade) {
-        val color = ContextCompat.getColor(context, R.color.toolbarBg)
-        view.setBackgroundDrawable(ColorDrawable(color))
+        val drawable = ContextCompat.getDrawable(context, R.drawable.calaender_date_bg)
+        drawable?.let {
+            view.setBackgroundDrawable(it)
+        }
+
         view.addSpan(ForegroundColorSpan(Color.WHITE))
     }
+
 }
