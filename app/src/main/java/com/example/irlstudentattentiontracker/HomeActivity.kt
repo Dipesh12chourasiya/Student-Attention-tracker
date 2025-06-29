@@ -9,8 +9,10 @@ import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.detectfaceandexpression.adapters.SessionAdapter
@@ -45,10 +47,48 @@ class HomeActivity : AppCompatActivity() {
 
         getAllSessions(this)
 
-        binding.topAppBar.setNavigationOnClickListener {
-            // Show a menu, drawer, or dialog here
-            showPopupMenu()
+        val drawerToggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.topAppBar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+
+        // Attach drawer listener
+        binding.drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        // setting Nav view click
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+                R.id.nav_about -> {
+                    showAboutDialog()
+                    true
+                }
+                R.id.nav_feedback -> {
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf("your-email@example.com"))
+                        putExtra(Intent.EXTRA_SUBJECT, "Feedback for Student Attention Tracker")
+                    }
+                    startActivity(Intent.createChooser(intent, "Send feedback via"))
+                    true
+                }
+                R.id.nav_clear -> {
+                    showClearConfirmationDialog()
+                    true
+                }
+                else -> false
+            }.also {
+                binding.drawerLayout.closeDrawers()
+            }
         }
+
 
 
         binding.fabStartSession.setOnClickListener {
@@ -64,7 +104,7 @@ class HomeActivity : AppCompatActivity() {
             binding.calendarView.addDecorator(decorator)
         }.launchIn(lifecycleScope)
 
-
+        // to set on date changed
         binding.calendarView.setOnDateChangedListener { widget, calendarDay, selected ->
             val date = calendarDay.date // This returns a java.util.Calendar
             val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
@@ -151,37 +191,4 @@ class HomeActivity : AppCompatActivity() {
             .show()
     }
 
-
-    private fun showPopupMenu() {
-        val popupMenu = PopupMenu(this, binding.topAppBar)
-        popupMenu.menuInflater.inflate(R.menu.top_app_bar_menu, popupMenu.menu)
-
-        popupMenu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_about -> {
-                    showAboutDialog()
-                    true
-                }
-
-                R.id.menu_feedback -> {
-                    val intent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_EMAIL, arrayOf("your-email@example.com"))
-                        putExtra(Intent.EXTRA_SUBJECT, "Feedback for Student Attention Tracker")
-                    }
-                    startActivity(Intent.createChooser(intent, "Send feedback via"))
-                    true
-                }
-
-                R.id.menu_clear_data -> {
-                    showClearConfirmationDialog()
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        popupMenu.show()
-    }
 }

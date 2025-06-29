@@ -1,123 +1,134 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homeCoordinator"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBg"
     tools:context=".HomeActivity">
 
-    <!-- App Bar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <!-- Main content -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/toolbarBg"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <!-- App Bar -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="@color/toolbarBg"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false">
+            android:background="@color/toolbarBg"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/baseline_menu_24"
-                app:title="Student Attention Tracker"
-                app:titleTextColor="?attr/colorOnPrimary" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- Scrollable Content -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Calendar Card -->
-            <com.google.android.material.card.MaterialCardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="6dp"
-                app:rippleColor="@color/md_theme_light_primary"
-                app:strokeColor="@color/md_theme_light_outline"
-                app:strokeWidth="0.5dp">
+                app:contentScrim="@color/toolbarBg"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:titleEnabled="false">
 
-                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                    android:id="@+id/calendarView"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/toolbarBg"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/baseline_menu_24"
+                    app:title="Student Attention Tracker"
+                    app:titleTextColor="?attr/colorOnPrimary" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!-- Scrollable Content -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Calendar -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
                     android:backgroundTint="@color/white"
-                    app:mcv_selectionColor="@color/toolbarBg"
-                    app:mcv_showOtherDates="all" />
-            </com.google.android.material.card.MaterialCardView>
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp">
 
-            <!-- Section Header -->
-            <TextView
-                android:id="@+id/tvRecentSessions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Recent Sessions"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                android:textStyle="bold" />
+                    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        app:mcv_selectionColor="@color/toolbarBg"
+                        app:mcv_showOtherDates="all" />
+                </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/tvEmptyState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:padding="24dp"
-                android:text="No sessions yet."
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:visibility="gone" />
+                <!-- Section Header -->
+                <TextView
+                    android:id="@+id/tvRecentSessions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Recent Sessions"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <!-- Sessions RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSessions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:clipToPadding="false"
-                tools:listitem="@layout/item_session_card" />
+                <!-- Empty State -->
+                <TextView
+                    android:id="@+id/tvEmptyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:padding="24dp"
+                    android:text="No sessions yet."
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <!-- Recycler View -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSessions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_session_card" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-    <!-- FAB -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/fabStartSession"
-        style="@style/ShapeAppearanceOverlay.Material3.Button"
+        <!-- FAB -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fabStartSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="14dp"
+            android:text="Start Session"
+            android:textSize="17sp"
+            app:backgroundTint="@color/toolbarBg" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/toolbarBg"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="15dp"
-        android:text="Start Session"
-        android:textSize="16sp" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/top_app_bar_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

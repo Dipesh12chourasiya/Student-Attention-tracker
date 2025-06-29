@@ -14,5 +14,4 @@ data class User(
     val totalInattentiveMinutes: Int = 0,
     val maxInattentiveStreak: Int = 0,
     val achievements: List<String>? = null
-
 )

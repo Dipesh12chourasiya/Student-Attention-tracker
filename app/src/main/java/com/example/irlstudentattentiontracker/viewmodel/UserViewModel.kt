@@ -217,4 +217,23 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
+    // UserViewModel.kt
+    fun getUserProfile(onResult: (username: String?, email: String?) -> Unit) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        val userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId)
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val username = snapshot.child("username").getValue(String::class.java)
+                val email = snapshot.child("email").getValue(String::class.java)
+                onResult(username, email)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                onResult(null, null) // Optionally handle errors better
+            }
+        })
+    }
+
+
 }
