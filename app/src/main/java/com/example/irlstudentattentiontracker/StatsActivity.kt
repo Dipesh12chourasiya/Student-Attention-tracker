@@ -39,7 +39,7 @@ class StatsActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        val totalFaces = intent.getIntExtra("totalFaces", 0)
+        val totalFaces = intent.getIntExtra("totalFaces", 1)
         val attentiveCount = intent.getIntExtra("attentiveCount", 0)
         val attentionPercent = intent.getIntExtra("attentionPercent", 0)
         val sessionDuration = intent.getStringExtra("sessionDuration") ?: "0s"
