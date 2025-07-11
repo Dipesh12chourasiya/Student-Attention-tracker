@@ -261,7 +261,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
         val request = ChatRequest(
             messages = listOf(
-                Message("user", "Generate a timetable for today in points. Subjects: $userInput")
+                Message("user", "Generate a Whole Day timetable for today in points. Subjects: $userInput")
             )
         )
 
