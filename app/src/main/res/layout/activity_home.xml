@@ -105,6 +105,19 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
+<!--        it will navigate to ChatBotActivity-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChatBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="20dp"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="14dp"
+            android:text="Chat with Ai"
+            android:textSize="17sp"
+            app:backgroundTint="@color/green" />
+
         <!-- FAB -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fabStartSession"

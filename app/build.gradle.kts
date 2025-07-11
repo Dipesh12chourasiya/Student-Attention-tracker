@@ -97,4 +97,14 @@ dependencies {
 
     // ✅ Material CalendarView
     implementation("com.prolificinteractive:material-calendarview:1.4.3")
+
+
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
+    //Markwon for displaying texts from response beautifully
+    implementation("io.noties.markwon:core:4.6.2")
+
 }

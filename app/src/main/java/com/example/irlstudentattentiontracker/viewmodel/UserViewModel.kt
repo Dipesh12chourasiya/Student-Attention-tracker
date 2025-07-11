@@ -9,6 +9,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.detectfaceandexpression.models.SessionData
 import com.example.detectfaceandexpression.models.User
+import com.example.irlstudentattentiontracker.models.ChatRequest
+import com.example.irlstudentattentiontracker.models.ChatResponse
+import com.example.irlstudentattentiontracker.models.Message
+import com.example.irlstudentattentiontracker.retrofit.RetrofitClient
 import com.example.irlstudentattentiontracker.roomDB.AppDatabase
 import com.example.irlstudentattentiontracker.roomDB.SessionEntity
 import com.google.firebase.auth.FirebaseAuth
@@ -23,8 +27,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class UserViewModel(application: Application): AndroidViewModel(application) {
+class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     // Room data base
     private val sessionDao = AppDatabase.getDatabase(application).sessionDao()
@@ -53,15 +60,6 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             sessionDao.deleteAll()
         }
     }
-
-
-
-
-
-
-
-
-
 
 
     // firebase
@@ -109,6 +107,20 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             }
     }
 
+    fun fetchUsername(onResult: (String?) -> Unit) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return onResult(null)
+
+        val dbRef = FirebaseDatabase.getInstance().getReference("Users").child(uid)
+
+        dbRef.get().addOnSuccessListener { dataSnapshot ->
+            val user = dataSnapshot.getValue(User::class.java)
+            onResult(user?.username)
+        }.addOnFailureListener {
+            onResult(null)
+        }
+    }
+
+
     // ✅ Login
     fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
@@ -137,24 +149,25 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return FirebaseAuth.getInstance().currentUser?.uid
     }
 
- // save session in /AllSessions path
- fun saveSessionToFirebase(session: SessionData) {
-     val userId = getCurrentUserID() ?: return // Get the currently logged-in user's ID
-     val db = FirebaseDatabase.getInstance().reference
+    // save session in /AllSessions path
+    fun saveSessionToFirebase(session: SessionData) {
+        val userId = getCurrentUserID() ?: return // Get the currently logged-in user's ID
+        val db = FirebaseDatabase.getInstance().reference
 
-     val sessionRef = db.child("AllSessions").child(userId).push() // Generate a unique session ID under the user
-     val sessionId = sessionRef.key ?: return
+        val sessionRef = db.child("AllSessions").child(userId)
+            .push() // Generate a unique session ID under the user
+        val sessionId = sessionRef.key ?: return
 
-     val sessionWithId = session.copy(sessionId = sessionId, userId = userId)
+        val sessionWithId = session.copy(sessionId = sessionId, userId = userId)
 
-     sessionRef.setValue(sessionWithId)
-         .addOnSuccessListener {
-             Log.d("Firebase", "Session saved successfully")
-         }
-         .addOnFailureListener { e ->
-             Log.e("Firebase", "Failed to save session: ${e.message}")
-         }
- }
+        sessionRef.setValue(sessionWithId)
+            .addOnSuccessListener {
+                Log.d("Firebase", "Session saved successfully")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firebase", "Failed to save session: ${e.message}")
+            }
+    }
 
 
     // to get all sessions of Current User
@@ -205,7 +218,7 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             .removeValue()
     }
 
-// delete all
+    // delete all
     fun deleteAllSessionsFromFirebase() {
         val userId = getCurrentUserID() ?: return
 
@@ -231,6 +244,41 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
 
             override fun onCancelled(error: DatabaseError) {
                 onResult(null, null) // Optionally handle errors better
+            }
+        })
+    }
+
+
+    //retrofit and chatbot logic
+
+
+    val isLoading = MutableLiveData<Boolean>()
+    val aiResponse = MutableLiveData<String>()
+
+
+    fun fetchRespponse(userInput: String) {
+        isLoading.value = true
+
+        val request = ChatRequest(
+            messages = listOf(
+                Message("user", "Generate a timetable for today in points. Subjects: $userInput")
+            )
+        )
+
+        RetrofitClient.api.getChatCompletion(request).enqueue(object : Callback<ChatResponse> {
+            override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
+                isLoading.value = false
+                if (response.isSuccessful) {
+                    val reply = response.body()?.choices?.firstOrNull()?.message?.content
+                    aiResponse.value = reply ?: "No response received."
+                } else {
+                    aiResponse.value = "Error: ${response.errorBody()?.string()}"
+                }
+            }
+
+            override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
+                isLoading.value = false
+                aiResponse.value = "Failed: ${t.message}"
             }
         })
     }

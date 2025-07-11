@@ -96,6 +96,11 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnChatBot.setOnClickListener {
+            val intent = Intent(this, ChatBotActivity::class.java)
+            startActivity(intent)
+        }
+
 
         // to setup the logic of calender to highlight old days
         viewModel.getAllSessionsForUser().onEach { sessionList :List<SessionData> ->
