@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.OptIn
@@ -18,10 +19,9 @@ import androidx.core.content.ContextCompat
 import com.example.irlstudentattentiontracker.databinding.ActivityMainBinding
 import com.example.irlstudentattentiontracker.utils.Utils
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
-import kotlin.math.abs
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     private val CAMERA_PERMISSION_CODE = 101
     var sessionTimestamp = ""
 
+
+
     private val timerRunnable = object : Runnable {
         override fun run() {
             val elapsed = System.currentTimeMillis() - sessionStartTime
@@ -56,7 +58,19 @@ class MainActivity : AppCompatActivity() {
 
         checkAndRequestCameraPermission()
 
+
+
+        // On button click, start using laptop camera
+        binding.useLaptopCamera.setOnClickListener {
+            val intent = Intent(this,LaptopCameraActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+
         binding.btnSwitchCamera.setOnClickListener {
+
             lensFacing = if (lensFacing == CameraSelector.LENS_FACING_FRONT)
                 CameraSelector.LENS_FACING_BACK
             else

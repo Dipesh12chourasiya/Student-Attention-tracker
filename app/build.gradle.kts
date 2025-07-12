@@ -107,4 +107,8 @@ dependencies {
     //Markwon for displaying texts from response beautifully
     implementation("io.noties.markwon:core:4.6.2")
 
+
+    // for video streaming
+    implementation ("com.github.niqdev:ipcam-view:2.4.0")
+
 }
