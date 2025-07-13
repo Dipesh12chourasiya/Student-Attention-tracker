@@ -83,7 +83,7 @@ class FaceOverlay(context: Context, attrs: AttributeSet?) : View(context, attrs)
     }
 
     private val textPaint = Paint().apply {
-        color = Color.GREEN
+        color = Color.WHITE
         textSize = 40f
     }
 
