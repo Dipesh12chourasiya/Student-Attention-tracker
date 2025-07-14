@@ -66,6 +66,10 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     true
                 }
+                R.id.time_table ->{
+                    startActivity(Intent(this,TimeTableActivity::class.java))
+                    true
+                }
                 R.id.nav_about -> {
                     showAboutDialog()
                     true

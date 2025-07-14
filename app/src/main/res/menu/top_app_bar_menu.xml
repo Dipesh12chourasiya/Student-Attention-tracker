@@ -6,6 +6,10 @@
         android:icon="@drawable/user"
         android:title="Profile" />
 
+    <item android:id="@+id/time_table"
+        android:icon="@drawable/baseline_access_time_filled_24"
+        android:title="Time table" />
+
     <item
         android:id="@+id/nav_about"
         android:icon="@drawable/baseline_info_24"

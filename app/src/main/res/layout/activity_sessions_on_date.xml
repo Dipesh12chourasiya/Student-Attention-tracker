@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/appBg"
     android:orientation="vertical">
 
@@ -50,6 +51,8 @@
         android:clipToPadding="false"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:layout_marginHorizontal="16dp"
+        tools:listitem="@layout/item_session_card"/>
 
 </LinearLayout>

@@ -114,7 +114,7 @@
             android:layout_margin="20dp"
             android:paddingHorizontal="25dp"
             android:paddingVertical="14dp"
-            android:text="Chat with Ai"
+            android:text="Create Time Table"
             android:textSize="17sp"
             app:backgroundTint="@color/green" />
 

@@ -1,5 +1,6 @@
 package com.example.irlstudentattentiontracker
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -37,13 +38,23 @@ class ChatBotActivity : AppCompatActivity() {
             username = it ?: "User"
         }
 
+
         viewModel.aiResponse.observe(this) { response ->
             binding.tvAiResponse.visibility = View.VISIBLE
 
-            val markwon = Markwon.create(this)
             val fullResponse = "Hey $username 👋\n\n$response"
 
+            // Save to SharedPreferences
+            val prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            prefs.edit().putString("ai_response", fullResponse).apply()
+
+            // Display in current activity
+            val markwon = Markwon.create(this)
             markwon.setMarkdown(binding.tvAiResponse, fullResponse)
+        }
+
+        binding.tvAiResponse.setOnClickListener {
+            startActivity(Intent(this, TimeTableActivity::class.java))
         }
 
 

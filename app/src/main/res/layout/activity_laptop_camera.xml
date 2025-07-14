@@ -30,6 +30,28 @@
     </FrameLayout>
 
 
+    <TextView
+        android:id="@+id/tvIPLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter IP address of device"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="16dp" />
+
+    <EditText
+        android:id="@+id/etIPAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:hint="Ex: 192.111.11.111"
+        android:background="@drawable/etbg"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:layout_marginBottom="5dp" />
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

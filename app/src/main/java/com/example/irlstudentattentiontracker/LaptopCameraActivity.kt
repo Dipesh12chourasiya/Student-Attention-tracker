@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +60,19 @@ class LaptopCameraActivity : AppCompatActivity() {
 
         setupFaceDetector()
 
+        var ipAddress = ""  // Real-time updated value , //eg: 192.161.22.111
+
+        binding.etIPAddress.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                ipAddress = s.toString()  // Update variable in real-time
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+
         binding.btnStartSession.setOnClickListener {
             isSessionRunning = true
             sessionStartTime = System.currentTimeMillis()
@@ -70,8 +85,8 @@ class LaptopCameraActivity : AppCompatActivity() {
             binding.btnStartSession.visibility = View.GONE
             binding.btnEndSession.visibility = View.VISIBLE
             binding.btnStopSound.visibility = View.VISIBLE
-
-            startMjpegAnalysisStream("http://${Env.IP}/video")
+                                       //  http://192.168.29.114:5000/video
+            startMjpegAnalysisStream("http://${ipAddress.trim()}:5000/video")
         }
 
         binding.btnEndSession.setOnClickListener {
@@ -211,6 +226,10 @@ Attentive Score: $attentionScore/2
             attentiveCount * 100 / totalAnalyzedFrames else 100
 
         runOnUiThread {
+            if(percentAttentive > 100){
+                percentAttentive = 100;
+            }
+
             val color = when {
                 percentAttentive >= 80 -> "#8FE693"
                 percentAttentive >= 50 -> "#FF5722"
