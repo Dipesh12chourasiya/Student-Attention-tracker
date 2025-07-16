@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         checkAndRequestCameraPermission()
 
+        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
 
         // On button click, start using laptop camera
@@ -99,6 +100,8 @@ class MainActivity : AppCompatActivity() {
             isSessionRunning = false
             val sessionEndTime = System.currentTimeMillis()
             val durationMillis = sessionEndTime - sessionStartTime
+
+            window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
             val intent = Intent(this, StatsActivity::class.java).apply {
                 putExtra("attentiveCount", attentiveCount)

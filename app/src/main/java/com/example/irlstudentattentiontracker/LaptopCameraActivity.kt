@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.irlstudentattentiontracker.databinding.ActivityLaptopCameraBinding
 import com.example.irlstudentattentiontracker.mjpegcode.MjpegInputStream
@@ -58,9 +59,12 @@ class LaptopCameraActivity : AppCompatActivity() {
         binding = ActivityLaptopCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
         setupFaceDetector()
 
         var ipAddress = ""  // Real-time updated value , //eg: 192.161.22.111
+
 
         binding.etIPAddress.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -74,6 +78,12 @@ class LaptopCameraActivity : AppCompatActivity() {
 
 
         binding.btnStartSession.setOnClickListener {
+
+            if(ipAddress.isEmpty()) {
+                Toast.makeText(this,"Please Provide the IP Address of Computer",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             isSessionRunning = true
             sessionStartTime = System.currentTimeMillis()
             sessionTimestamp = Utils.formatFullDateTime(sessionStartTime)
@@ -85,7 +95,8 @@ class LaptopCameraActivity : AppCompatActivity() {
             binding.btnStartSession.visibility = View.GONE
             binding.btnEndSession.visibility = View.VISIBLE
             binding.btnStopSound.visibility = View.VISIBLE
-                                       //  http://192.168.29.114:5000/video
+
+            //  http://192.111.11.111:5000/video
             startMjpegAnalysisStream("http://${ipAddress.trim()}:5000/video")
         }
 
@@ -104,6 +115,9 @@ class LaptopCameraActivity : AppCompatActivity() {
                 putExtra("sessionTimestamp", sessionTimestamp)
                 putExtra("totalFrames", totalAnalyzedFrames)
             }
+
+            window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
             startActivity(intent)
             binding.btnStartSession.visibility = View.VISIBLE
             binding.btnEndSession.visibility = View.GONE
