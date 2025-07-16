@@ -25,7 +25,9 @@
             android:exported="false" />
         <activity
             android:name=".LaptopCameraActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".ChatBotActivity"
             android:exported="false" />
