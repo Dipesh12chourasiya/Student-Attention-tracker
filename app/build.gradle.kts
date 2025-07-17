@@ -111,4 +111,10 @@ dependencies {
     // for video streaming
     implementation ("com.github.niqdev:ipcam-view:2.4.0")
 
+
+
+    // for animation
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+
 }

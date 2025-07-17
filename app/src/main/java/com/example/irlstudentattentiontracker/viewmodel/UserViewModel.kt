@@ -256,12 +256,35 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val aiResponse = MutableLiveData<String>()
 
 
-    fun fetchRespponse(userInput: String) {
+    fun fetchRespponse(subjects: String, wakeUpTime:String, sleepTime:String) {
         isLoading.value = true
+
+//        val prompt = "Generate today's timetable for whole day in markdown, " +
+//                "Wake-up time: $wakeUpTime Sleep time: $sleepTime Subjects: $subjects" +
+//                "Use this format:\n" +
+//                "**Morning**\n" +
+//                "- 9:00 AM – 10:00 AM – Subject Name" +
+//                "- take break" +
+//                "Only show the timetable. Use 12-hour format. No extra text."
+
+        val prompt = """
+Make a simple full day timetable in Markdown using these subjects: $subjects
+My wakeup time is $wakeUpTime, sleep time is $sleepTime.
+Use four parts: Morning, Noon, Evening, Night.
+Format:
+**Morning**
+- 9:00 AM to 10 Am – subject1
+- break
+No intro or conclusion. 12-hour format.
+""".trimIndent()
+
+
+//        Message("user", "Generate a Whole Day timetable for today in points. Subjects: $userInput")
 
         val request = ChatRequest(
             messages = listOf(
-                Message("user", "Generate a Whole Day timetable for today in points. Subjects: $userInput")
+//                Message("user", prompt)
+                Message("user", "Generate a Whole Day timetable for today in points. i wake up at:$wakeUpTime, sleep at $sleepTime Subjects: $subjects, dont add intro or conclusion. 12-hour format.")
             )
         )
 
