@@ -268,7 +268,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 //                "Only show the timetable. Use 12-hour format. No extra text."
 
         val prompt = """
-Make a simple full day timetable in Markdown using these subjects: $subjects
+Make a simple full day timetable for these subjects: $subjects
 My wakeup time is $wakeUpTime, sleep time is $sleepTime.
 Use four parts: Morning, Noon, Evening, Night.
 Format:

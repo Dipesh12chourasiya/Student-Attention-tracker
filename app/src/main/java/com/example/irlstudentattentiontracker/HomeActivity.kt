@@ -3,6 +3,8 @@ package com.example.irlstudentattentiontracker
 import SessionDayDecorator
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +14,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.detectfaceandexpression.adapters.SessionAdapter
 import com.example.detectfaceandexpression.models.SessionData
 import com.example.irlstudentattentiontracker.databinding.ActivityHomeBinding
+import com.example.irlstudentattentiontracker.notifications.NotificationUtils
 import com.example.irlstudentattentiontracker.roomDB.SessionEntity
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
@@ -44,6 +49,22 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Check and request notification permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1001
+                )
+            } else {
+                setupDailyNotifications()
+            }
+        } else {
+            setupDailyNotifications()
+        }
 
         getAllSessions(this)
 
@@ -198,6 +219,36 @@ class HomeActivity : AppCompatActivity() {
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            setupDailyNotifications()
+        }
+    }
+
+// function to set up notifications
+    private fun setupDailyNotifications() {
+        NotificationUtils.createNotificationChannel(this)
+
+        NotificationUtils.scheduleDailyNotification(
+            this, 7, 0, "🌅 Morning! Time to Start.", 101
+        )
+        NotificationUtils.scheduleDailyNotification(
+            this, 14, 0, "📖 Focus on your midday session.", 102
+        )
+        NotificationUtils.scheduleDailyNotification(
+            this, 14, 0, "🌅 Focus on your evening session.", 103
+        )
+        NotificationUtils.scheduleDailyNotification(
+            this, 21, 0, "🌙 Night time! Review your topics.", 104
+        )
     }
 
 }

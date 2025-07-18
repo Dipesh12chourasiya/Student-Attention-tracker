@@ -6,14 +6,10 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.irlstudentattentiontracker.auth.LoginActivity
 import com.example.irlstudentattentiontracker.databinding.ActivitySplashBinding
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
@@ -37,11 +33,14 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         if (!hasAllPermissions()) {
             ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS)
         } else {
             proceedToLogin()
         }
+
+
     }
 
     private fun hasAllPermissions(): Boolean {

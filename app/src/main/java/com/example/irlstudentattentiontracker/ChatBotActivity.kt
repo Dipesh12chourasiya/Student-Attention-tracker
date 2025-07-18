@@ -1,8 +1,10 @@
 package com.example.irlstudentattentiontracker
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -76,6 +78,7 @@ class ChatBotActivity : AppCompatActivity() {
             // Display in current activity
             val markwon = Markwon.create(this)
             markwon.setMarkdown(binding.tvAiResponse, fullResponse)
+//            binding.tvAiResponse.text = fullResponse
         }
 
         binding.tvAiResponse.setOnClickListener {
@@ -95,6 +98,10 @@ class ChatBotActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Enter the details", Toast.LENGTH_SHORT).show()
             }
+
+            // Hide keyboard
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.etUserSubjects.windowToken, 0)
         }
     }
 
