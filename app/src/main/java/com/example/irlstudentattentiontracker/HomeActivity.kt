@@ -60,9 +60,11 @@ class HomeActivity : AppCompatActivity() {
                     1001
                 )
             } else {
+
                 setupDailyNotifications()
             }
         } else {
+
             setupDailyNotifications()
         }
 
@@ -115,16 +117,44 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-
-        binding.fabStartSession.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_create_timetable -> {
+                    startActivity(Intent(this, ChatBotActivity::class.java))
+                    true
+                }
+                R.id.navigation_view_timetable -> {
+                    startActivity(Intent(this, TimeTableActivity::class.java))
+                    true
+                }
+                R.id.navigation_start_session -> {
+                    startActivity(Intent(this, MainActivity::class.java)) // your face detection session
+                    true
+                }
+                R.id.navigation_todays_report -> {
+                    startActivity(Intent(this, DailyReportActivity::class.java))
+                    true
+                }
+                else -> false
+            }
         }
 
-        binding.btnChatBot.setOnClickListener {
-            val intent = Intent(this, ChatBotActivity::class.java)
-            startActivity(intent)
-        }
+
+//        binding.btDashboard.setOnClickListener {
+//            val intent = Intent(this, DailyReportActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//
+//        binding.fabStartSession.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        binding.btnChatBot.setOnClickListener {
+//            val intent = Intent(this, ChatBotActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         // to setup the logic of calender to highlight old days
@@ -244,11 +274,10 @@ class HomeActivity : AppCompatActivity() {
             this, 14, 0, "📖 Focus on your midday session.", 102
         )
         NotificationUtils.scheduleDailyNotification(
-            this, 14, 0, "🌅 Focus on your evening session.", 103
+            this, 18, 5, "🌅 Focus on your evening session.", 103
         )
         NotificationUtils.scheduleDailyNotification(
             this, 21, 0, "🌙 Night time! Review your topics.", 104
         )
     }
-
 }

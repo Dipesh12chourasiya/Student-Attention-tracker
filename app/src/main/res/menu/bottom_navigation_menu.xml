@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_create_timetable"
+        android:icon="@drawable/baseline_create_time_table24"
+    android:title="Create Timetable" />
+
+    <item
+        android:id="@+id/navigation_view_timetable"
+        android:icon="@drawable/timetable_24"
+    android:title="View Timetable" />
+
+    <item
+        android:id="@+id/navigation_start_session"
+        android:icon="@drawable/startsession"
+    android:title="Start Session" />
+
+    <item
+        android:id="@+id/navigation_todays_report"
+        android:icon="@drawable/baseline_insert_drive_file_24"
+    android:title="Today's Report" />
+
+</menu>
