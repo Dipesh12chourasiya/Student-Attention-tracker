@@ -10,4 +10,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="CalendarTextAppearance" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">#fff</item> <!-- Or @color/black -->
+    </style>
+
 </resources>

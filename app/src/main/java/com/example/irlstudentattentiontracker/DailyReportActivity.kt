@@ -1,6 +1,7 @@
 package com.example.irlstudentattentiontracker
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +36,11 @@ class DailyReportActivity : AppCompatActivity() {
         binding = ActivityDailyReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Back button
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
         val todayDateOnly = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(Date())
 //        val todayDateOnly = "16 July 2025"
 
@@ -64,7 +70,8 @@ class DailyReportActivity : AppCompatActivity() {
 
     private fun displayHeaderStats(sessions: List<SessionData>) {
         // Show today's date
-        binding.tvDate.text = "Date: " + SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(Date())
+        binding.tvDate.text =
+            "Date: " + SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(Date())
 
         var totalMinutes = 0
         var totalAttention = 0f
@@ -99,14 +106,23 @@ class DailyReportActivity : AppCompatActivity() {
 
     private fun setupLineChart(sessions: List<SessionData>) {
         val entries = sessions.mapIndexed { index, session ->
-            Log.d("LineChartDebug", "title=${session.title}, attentionPercent=${session.attentionPercent}")
+            Log.d(
+                "LineChartDebug",
+                "title=${session.title}, attentionPercent=${session.attentionPercent}"
+            )
             Entry(index.toFloat(), session.attentionPercent?.toFloat() ?: 0f)
         }
+
+        val isDarkMode = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
+        val textColor = if (isDarkMode) Color.WHITE else Color.BLACK
 
         val dataSet = LineDataSet(entries, "Attention %").apply {
             setDrawFilled(true)
             fillAlpha = 150
-            fillDrawable = ContextCompat.getDrawable(this@DailyReportActivity, R.drawable.chart_gradient)
+            fillDrawable =
+                ContextCompat.getDrawable(this@DailyReportActivity, R.drawable.chart_gradient)
             color = Color.BLUE
             valueTextColor = Color.BLACK
             lineWidth = 2f
@@ -130,15 +146,33 @@ class DailyReportActivity : AppCompatActivity() {
             xAxis.setDrawLabels(false) // optional: hide index numbers
             invalidate()
         }
-    }
 
+        // Set value text color for dataset
+        dataSet.valueTextColor = textColor
+
+// Axis label color
+        val xAxis = binding.lineChart.xAxis
+        xAxis.textColor = textColor
+
+        val leftAxis = binding.lineChart.axisLeft
+        leftAxis.textColor = textColor
+
+        val rightAxis = binding.lineChart.axisRight
+        rightAxis.textColor = textColor
+
+// Legend color
+        binding.lineChart.legend.textColor = textColor
+    }
 
 
     private fun setupRecyclerView(sessions: List<SessionData>) {
         val adapter = SessionAdapter(
             onItemClick = { session ->
                 val intent = Intent(this, SessionDetailActivity::class.java)
-                intent.putExtra("session_data", session) // session must be Serializable or Parcelable
+                intent.putExtra(
+                    "session_data",
+                    session
+                ) // session must be Serializable or Parcelable
                 startActivity(intent)
             },
             onItemLongClick = { session ->

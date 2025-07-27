@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:title="Generate Time Table"
-            app:titleTextColor="?attr/colorOnPrimary" />
+            app:titleTextColor="#fff" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -51,14 +51,15 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <!--                    // for wake up input-->
+                    <!-- Wake up time input -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilMorning"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp">
+                        android:layout_marginTop="16dp"
+                        >
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <EditText
                             android:id="@+id/etMorning"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -68,20 +69,21 @@
                             android:focusable="false"
                             android:hint="When do you wake up?"
                             android:inputType="none"
+                            android:padding="12dp"
                             android:textColor="@color/black"
                             android:textColorHint="@color/black"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!--                    // for sleep time input-->
-
+                    <!-- Sleep time input -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilNight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp">
+                        android:layout_marginTop="16dp"
+                        >
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <EditText
                             android:id="@+id/etNight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -91,29 +93,34 @@
                             android:focusable="false"
                             android:hint="When do you sleep?"
                             android:inputType="none"
+                            android:padding="12dp"
                             android:textColor="@color/black"
                             android:textColorHint="@color/black"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Subjects input -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="24dp">
+                        android:layout_marginBottom="24dp"
+                        >
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <EditText
                             android:id="@+id/etUserSubjects"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/etbg"
                             android:hint="Enter your subjects"
                             android:inputType="textCapSentences"
+                            android:padding="12dp"
                             android:textColor="@color/black"
                             android:textColorHint="@color/grey"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Generate Button -->
                     <Button
                         android:id="@+id/btnGenerate"
                         android:layout_width="match_parent"
@@ -123,11 +130,12 @@
                         android:elevation="4dp"
                         android:paddingVertical="14dp"
                         android:text="Generate Timetable"
-                        android:textColor="@color/white"
+                        android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:cornerRadius="8dp" />
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
 <!--            <ProgressBar-->

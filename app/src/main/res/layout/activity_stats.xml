@@ -37,23 +37,10 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <EditText
-                android:id="@+id/etSessionName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter session name"
-                android:background="@drawable/etbg"
-                android:padding="12dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey"
-                android:layout_marginBottom="5dp"/>
-
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/summaryCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="4dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
@@ -72,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:text="Session Summary"
                         android:textAppearance="?attr/textAppearanceTitleLarge"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -91,10 +78,9 @@
                         android:gravity="center_vertical"
                         android:text="Total Faces: 5"
                         android:textAppearance="?attr/textAppearanceBodyLarge"
-                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textColor="@color/grey"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/titleSpacer" />
-
 
                     <Space
                         android:id="@+id/rowSpacer1"
@@ -129,7 +115,7 @@
                         android:gravity="center_vertical"
                         android:text="Start Time: 10:00 AM"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textColor="@color/grey"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/rowSpacer2" />
 
@@ -141,7 +127,7 @@
                         android:gravity="center_vertical"
                         android:text="End Time: 10:03 AM"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textColor="@color/grey"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvStartTime" />
 
@@ -159,7 +145,7 @@
                         android:gravity="center_vertical"
                         android:text="Duration: 3m 20s"
                         android:textAppearance="?attr/textAppearanceBodyLarge"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="@color/black"
                         app:drawableStartCompat="@drawable/baseline_timer_24"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +160,7 @@
                         android:gravity="center_vertical"
                         android:text="Date: June 28, 2025"
                         android:textAppearance="?attr/textAppearanceBodyLarge"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="@color/black"
                         app:drawableStartCompat="@drawable/baseline_calendar_month_24"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -184,6 +170,16 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <EditText
+                android:id="@+id/etSessionName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter session name"
+                android:background="@drawable/etbg"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:layout_marginBottom="5dp"/>
             <EditText
                 android:id="@+id/etAddNote"
                 android:layout_width="match_parent"
@@ -198,7 +194,7 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/attentionPieChart"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="260dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="7dp" />
 

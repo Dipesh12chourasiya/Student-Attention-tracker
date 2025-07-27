@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="grey">#4D4D4D</color>
-    <color name="white">#FFFFFFFF</color>
-<!--    <color name="appBg">#D8E8F2</color>-->
-    <color name="appBg">#F1F6FB</color>
-    <color name="calBg">#fff</color>
+    <color name="white">#FF000000</color>
+    <color name="grey">#A4A4A4</color>
+    <color name="black">#FFFFFFFF</color>
+    <!--    <color name="appBg">#D8E8F2</color>-->
+    <color name="appBg">#012447</color>
+    <color name="calBg">#B6B6B6</color>
 
     <color name="green">#009688</color>
-    <!-- themes.xml -->
 
     <color name="md_theme_light_primary">#3F51B5</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
@@ -17,7 +16,7 @@
     <color name="md_theme_light_onSurfaceVariant">#424242</color>
     <color name="md_theme_light_outline">#E0E0E0</color>
 
-    <color name="toolbarBg">#37B8F4</color>
+    <color name="toolbarBg">#043C8A</color>
 
     <color name="chart_acolor_attentive">#2196F3</color>
     <color name="chart_color_inattentive">#FF9800</color>

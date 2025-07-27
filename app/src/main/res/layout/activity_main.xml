@@ -51,8 +51,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:text="  Attention Score:"
-                android:textColor="@color/white"
+                android:padding="5dp"
+                android:text="  Attention Percent:"
+                android:textColor="#fff"
                 android:textSize="15sp" />
 
             <TextView
@@ -62,7 +63,8 @@
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="0%"
-                android:textColor="@color/white"
+                android:paddingVertical="7dp"
+                android:textColor="#fff"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -142,11 +144,11 @@
             android:layout_marginStart="7dp"
             android:background="@drawable/timer_bg"
             android:drawableStart="@drawable/baseline_timer_24"
-            android:drawableTint="@color/white"
+            android:drawableTint="#fff"
             android:gravity="center"
             android:padding="10dp"
             android:text=" 00:00"
-            android:textColor="@color/white"
+            android:textColor="#fff"
             android:textSize="18sp" />
 
         <Space

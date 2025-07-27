@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/appBg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".SessionsOnDateActivity">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,8 +19,9 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="Sessions"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="#fff" />
 
+    <!-- Date Card -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,21 +41,99 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="12dp"
             android:text="26 June 2025"
-            android:textColor="@color/white"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSessions"
+    <!-- Chart and Recycler in Scrollable Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:scrollbars="vertical"
-        android:layout_marginHorizontal="16dp"
-        tools:listitem="@layout/item_session_card"/>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
+
+            <!-- Header Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvTotalDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Total Duration: 0"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvAttentionPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Overall Attention: 0%"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!-- Line Chart Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Attention Percent"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSessions"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="8dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_session_card" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

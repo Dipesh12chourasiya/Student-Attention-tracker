@@ -4,6 +4,8 @@ import SessionDayDecorator
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 
 import android.os.Bundle
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.detectfaceandexpression.adapters.SessionAdapter
@@ -47,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         // Check and request notification permission

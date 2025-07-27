@@ -9,10 +9,9 @@
     android:gravity="bottom">
 
     <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/baseline_people_24"
-        app:tint="@color/white"
+        android:layout_width="164dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
         android:contentDescription="Logo"
         android:layout_gravity="center" />
 

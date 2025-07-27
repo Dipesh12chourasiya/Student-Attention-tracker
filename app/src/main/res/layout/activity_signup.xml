@@ -11,12 +11,12 @@
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="220dp"
+        android:layout_height="160dp"
         android:layout_marginTop="32dp"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_people_24"
+        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Create Account"
-        android:textColor="#333333"
+        android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Join us and get started!"
-        android:textColor="#666666"
+        android:textColor="@color/grey"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +49,11 @@
     <!-- Username Input Field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:hint="Username"
+        android:textColorHint="@color/grey"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -64,6 +64,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username_edit_text"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -75,9 +76,9 @@
     <!-- Email Input Field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/grey"
         android:layout_marginTop="16dp"
         android:hint="Email Address"
         app:boxCornerRadiusBottomEnd="8dp"
@@ -90,6 +91,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_edit_text"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -101,11 +103,11 @@
     <!-- Password Input Field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Password"
+        android:textColorHint="@color/grey"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -113,10 +115,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_input_layout"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_edit_text"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -157,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Already have an account?"
-            android:textColor="#666666"
+            android:textColor="@color/grey"
             android:textSize="15sp" />
 
         <TextView

@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
 
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:text="Date: "
-                        android:textColor="#333333"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:text="Total Duration: 0"
-                        android:textColor="#666666"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Overall Attention: 0%"
-                        android:textColor="#666666"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
 
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:text="Attention Percent"
-                        android:textColor="#333333"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
 
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:text="Individual Session Details"
-                        android:textColor="#333333"
+                        android:textColor="@color/grey"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

@@ -11,12 +11,12 @@
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="220dp"
+        android:layout_height="160dp"
         android:layout_marginTop="64dp"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_people_24"
+        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Welcome Back!"
-        android:textColor="#333333"
+        android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Sign in to continue"
-        android:textColor="#666666"
+        android:textColor="@color/grey"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +49,11 @@
     <!-- Email Input Field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="Email Address"
+        android:textColorHint="@color/grey"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -63,6 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/login_subtitle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:textColor="@color/black"
             android:id="@+id/email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +76,7 @@
     <!-- Password Input Field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -87,9 +88,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_input_layout"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:textColor="@color/black"
             android:id="@+id/password_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don't have an account?"
-            android:textColor="#666666"
+            android:textColor="@color/grey"
             android:textSize="15sp" />
 
         <TextView

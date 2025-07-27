@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,8 @@ class ChatBotActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBotBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+
 
         var username: String? = ""
 
@@ -107,7 +110,7 @@ class ChatBotActivity : AppCompatActivity() {
 
 
 // to show the time dialog in the edit text
-    private fun showTimePicker(editText: TextInputEditText, title: String) {
+    private fun showTimePicker(editText: EditText, title: String) {
         val calendar = Calendar.getInstance()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)

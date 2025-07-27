@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/appBg"
     tools:context=".ProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,8 +30,8 @@
                 app:title="Profile"
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-                app:navigationIconTint="@color/white"
-                app:titleTextColor="@color/white" />
+                app:navigationIconTint="#fff"
+                app:titleTextColor="#fff" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -40,7 +40,8 @@
             android:layout_height="120dp"
             android:layout_marginTop="24dp"
             android:padding="4dp"
-            android:src="@drawable/profileuser"
+            android:src="@drawable/user"
+            android:tint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
@@ -54,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-            android:textColor="?attr/colorOnSurface"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/usernameTextView"
@@ -98,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:text="Achievements"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/achievementsTextView"
@@ -106,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textColor="@color/grey"
                     tools:text="Early Bird, Focus Master, Streak Breaker, Goal Setter" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
