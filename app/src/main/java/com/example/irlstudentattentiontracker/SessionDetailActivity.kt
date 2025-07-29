@@ -21,6 +21,7 @@ class SessionDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySessionDetailBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
 
         setContentView(binding.root)
 

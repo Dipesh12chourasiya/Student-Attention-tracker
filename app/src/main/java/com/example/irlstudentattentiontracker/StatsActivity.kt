@@ -31,8 +31,9 @@ class StatsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStatsBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
+
         setContentView(binding.root)
-        Log.d("Track", "Stats started")
 
         // Toolbar back button
         binding.toolbar.setNavigationOnClickListener {

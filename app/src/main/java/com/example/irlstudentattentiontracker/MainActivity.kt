@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
         setContentView(binding.root)
 
         checkAndRequestCameraPermission()

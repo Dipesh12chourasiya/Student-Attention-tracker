@@ -34,6 +34,7 @@ class DailyReportActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDailyReportBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
         setContentView(binding.root)
 
         // Back button
@@ -73,35 +74,45 @@ class DailyReportActivity : AppCompatActivity() {
         binding.tvDate.text =
             "Date: " + SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(Date())
 
-        var totalMinutes = 0
+        var totalSeconds = 0
         var totalAttention = 0f
 
         for (session in sessions) {
-            // Parse "duration" string like "31m 12s" into total minutes
             val durationStr = session.duration ?: continue
-            val regex = Regex("(\\d+)m.*?(\\d+)s")
+
+            // Parse optional hours, minutes, and seconds using regex
+            val regex = Regex("(?:(\\d+)h)?\\s*(?:(\\d+)m)?\\s*(?:(\\d+)s)?")
             val match = regex.find(durationStr)
+
             if (match != null) {
-                val minutes = match.groupValues[1].toIntOrNull() ?: 0
-                val seconds = match.groupValues[2].toIntOrNull() ?: 0
-                totalMinutes += (minutes + seconds / 60)
+                val hours = match.groupValues[1].toIntOrNull() ?: 0
+                val minutes = match.groupValues[2].toIntOrNull() ?: 0
+                val seconds = match.groupValues[3].toIntOrNull() ?: 0
+
+                totalSeconds += hours * 3600 + minutes * 60 + seconds
             }
 
-            // Use pre-stored attentionPercent
             totalAttention += session.attentionPercent?.toFloat() ?: 0f
         }
 
-        // Convert totalMinutes to hours and minutes
-        val hours = totalMinutes / 60
-        val minutes = totalMinutes % 60
-        val durationText = if (hours > 0) "${hours}h ${minutes}m" else "${minutes}m"
+        // Convert totalSeconds to hh:mm:ss
+        val totalHours = totalSeconds / 3600
+        val remainingSeconds = totalSeconds % 3600
+        val totalMinutes = remainingSeconds / 60
+        val totalRemSeconds = remainingSeconds % 60
 
-        // Average attention percent
+        val durationText = when {
+            totalHours > 0 -> "${totalHours}h ${totalMinutes}m ${totalRemSeconds}s"
+            totalMinutes > 0 -> "${totalMinutes}m ${totalRemSeconds}s"
+            else -> "${totalRemSeconds}s"
+        }
+
         val avgAttention = if (sessions.isNotEmpty()) totalAttention / sessions.size else 0f
 
         binding.tvTotalDuration.text = "Total Duration: $durationText"
         binding.tvAttentionPercent.text = "Overall Attention: ${"%.1f".format(avgAttention)}%"
     }
+
 
 
     private fun setupLineChart(sessions: List<SessionData>) {

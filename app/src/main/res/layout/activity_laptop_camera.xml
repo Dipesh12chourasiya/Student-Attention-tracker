@@ -63,7 +63,7 @@
         card_view:cardElevation="6dp"
         card_view:contentPadding="16dp"
         android:layout_marginHorizontal="12dp"
-        android:backgroundTint="@color/white">
+        android:backgroundTint="@color/card_bg">
 
         <LinearLayout
             android:layout_width="match_parent"

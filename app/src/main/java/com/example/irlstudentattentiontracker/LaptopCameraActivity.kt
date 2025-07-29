@@ -2,6 +2,7 @@ package com.example.irlstudentattentiontracker
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -57,6 +58,8 @@ class LaptopCameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLaptopCameraBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
+
         setContentView(binding.root)
 
         window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

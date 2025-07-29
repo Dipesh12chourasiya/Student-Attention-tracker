@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="6dp"
-                    app:cardBackgroundColor="@color/white">  <!-- Explicit white background -->
+                    app:cardBackgroundColor="@color/card_bg">  <!-- Explicit white background -->
 
                     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                         android:id="@+id/calendarView"
@@ -162,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/white"
+            android:background="@color/card_bg"
             app:itemIconTint="@color/bottom_nav_icon_selector"
             app:itemTextColor="@color/bottom_nav_icon_selector"
             app:labelVisibilityMode="unlabeled"
@@ -173,7 +173,7 @@
 
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/card_bg"
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

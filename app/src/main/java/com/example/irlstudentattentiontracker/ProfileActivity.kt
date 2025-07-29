@@ -1,6 +1,7 @@
 package com.example.irlstudentattentiontracker
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
         setContentView(binding.root)
 
         // Back button

@@ -1,6 +1,8 @@
 package com.example.irlstudentattentiontracker
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.irlstudentattentiontracker.databinding.ActivityTimeTableBinding
@@ -13,6 +15,8 @@ class TimeTableActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimeTableBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
+
         setContentView(binding.root)
 
         // Load saved text from SharedPreferences

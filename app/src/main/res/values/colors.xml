@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="grey">#4D4D4D</color>
     <color name="white">#FFFFFFFF</color>
-<!--    <color name="appBg">#D8E8F2</color>-->
+    <!--    <color name="appBg">#D8E8F2</color>-->
     <color name="appBg">#F1F6FB</color>
     <color name="calBg">#fff</color>
 
@@ -17,9 +17,18 @@
     <color name="md_theme_light_onSurfaceVariant">#424242</color>
     <color name="md_theme_light_outline">#E0E0E0</color>
 
-    <color name="toolbarBg">#37B8F4</color>
+    <color name="toolbarBg">#1E88E5</color>
 
     <color name="chart_acolor_attentive">#2196F3</color>
     <color name="chart_color_inattentive">#FF9800</color>
+
+
+    <color name="app_bg_dark">#0D1B2A</color>
+    <color name="toolbar_dark">#1E88E5</color>
+    <color name="card_bg">#fff</color>
+    <color name="special_card_bg">#D3E0F4</color>
+
+    <color name="accent_blue">#29B6F6</color>
+    <color name="text_primary_dark">#FFFFFF</color>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.irlstudentattentiontracker
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -30,8 +31,8 @@ class ChatBotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBotBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
         setContentView(binding.root)
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
 
 
         var username: String? = ""

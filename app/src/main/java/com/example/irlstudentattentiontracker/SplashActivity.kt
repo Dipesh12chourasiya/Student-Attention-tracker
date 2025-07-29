@@ -3,6 +3,7 @@ package com.example.irlstudentattentiontracker
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -31,6 +32,8 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
+        this.window.statusBarColor = Color.BLUE
+
         setContentView(binding.root)
 
 

@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
-
+        this.window.statusBarColor = Color.BLUE
         setContentView(binding.root)
 
         // Check and request notification permission

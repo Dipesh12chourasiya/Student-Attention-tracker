@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="8dp"
                 app:strokeColor="@color/appBg"
@@ -57,6 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:textColorHint="@color/grey"
                         >
 
                         <EditText
@@ -81,6 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:textColorHint="@color/grey"
                         >
 
                         <EditText
@@ -105,9 +107,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="24dp"
+                        android:textColorHint="@color/grey"
                         >
 
                         <EditText
+
                             android:id="@+id/etUserSubjects"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -116,7 +120,6 @@
                             android:inputType="textCapSentences"
                             android:padding="12dp"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/grey"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/white"
+                android:background="@color/card_bg"
                 android:elevation="2dp"
                 android:minHeight="120dp"
                 android:padding="20dp"
