@@ -36,9 +36,13 @@ The goal is to help students study smarter—by analyzing focus patterns and mak
 
 🎥 Demo
 
-<img src="https://github.com/user-attachments/assets/44a23407-dc49-4941-a4e8-035ce885270d" width="250"/> <img src="https://github.com/user-attachments/assets/0ad470ad-f00e-40b9-81b2-8eee9f0a6661" width="250"/><img src="https://github.com/user-attachments/assets/89825a11-73ff-43b6-80a8-7cd91d458285" width="250"/> <img src="https://github.com/user-attachments/assets/22b50484-df03-4238-b6c9-1a92cc21130b" width="250"/>
+<img src="https://github.com/user-attachments/assets/44a23407-dc49-4941-a4e8-035ce885270d" width="250"/> <img src="https://github.com/user-attachments/assets/0ad470ad-f00e-40b9-81b2-8eee9f0a6661" width="250"/>
 
-<img src="https://github.com/user-attachments/assets/58c77c50-90b7-4981-a52e-812da4faa13a" width="250"/> <img src="https://github.com/user-attachments/assets/ab96bc49-c76a-4201-9976-4c86fbc8a3b4" width="250"/><img src="https://github.com/user-attachments/assets/4c11bee0-97a2-4434-bb3b-b8ff792a6db9" width="250"/> <img src="https://github.com/user-attachments/assets/aea1645b-f7d3-4029-a164-0c86a02f80a8" width="250"/>
+<img src="https://github.com/user-attachments/assets/89825a11-73ff-43b6-80a8-7cd91d458285" width="250"/> <img src="https://github.com/user-attachments/assets/22b50484-df03-4238-b6c9-1a92cc21130b" width="250"/>
+
+<img src="https://github.com/user-attachments/assets/58c77c50-90b7-4981-a52e-812da4faa13a" width="250"/> <img src="https://github.com/user-attachments/assets/ab96bc49-c76a-4201-9976-4c86fbc8a3b4" width="250"/>
+
+<img src="https://github.com/user-attachments/assets/4c11bee0-97a2-4434-bb3b-b8ff792a6db9" width="250"/> <img src="https://github.com/user-attachments/assets/aea1645b-f7d3-4029-a164-0c86a02f80a8" width="250"/>
 
 <img src="https://github.com/user-attachments/assets/9a587869-5344-4621-a5b4-d886d4d4ce48" width="250"/> <img src="https://github.com/user-attachments/assets/c94ecf0f-0ace-4fe1-8402-33427d8eac59" width="250"/>
 
