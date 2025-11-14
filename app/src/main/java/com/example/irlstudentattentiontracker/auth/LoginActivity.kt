@@ -58,54 +58,13 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.forgotPasswordText.setOnClickListener {
-            Toast.makeText(this, "Reset password feature not implemented", Toast.LENGTH_SHORT).show()
-            // You can add reset password logic here
-        }
 
 
         binding.forgotPasswordText.setOnClickListener {
-            showForgotPasswordDialog()
-        }
-    }
-
-
-    private fun showForgotPasswordDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Reset Password")
-
-        val input = EditText(this)
-        input.hint = "Enter your email"
-        input.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-        input.setPadding(50, 20, 50, 20)
-        builder.setView(input)
-
-        builder.setPositiveButton("Send") { dialog, _ ->
-            val email = input.text.toString().trim()
-            if (email.isNotEmpty()) {
-                sendPasswordResetEmail(email)
-            } else {
-                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
-            }
-            dialog.dismiss()
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
 
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        builder.show()
-    }
-
-    private fun sendPasswordResetEmail(email: String) {
-        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Password reset email sent to $email", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-                }
-            }
     }
 
 }
