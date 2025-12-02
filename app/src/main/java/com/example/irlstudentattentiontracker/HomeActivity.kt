@@ -86,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-        // setting Nav view click
+        // setting Nav view click side bar
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_profile -> {
@@ -123,6 +123,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
+                R.id.navigation_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    true
+                }
                 R.id.navigation_create_timetable -> {
                     startActivity(Intent(this, ChatBotActivity::class.java))
                     true

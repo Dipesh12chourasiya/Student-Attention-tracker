@@ -318,6 +318,4 @@ No intro or conclusion. 12-hour format.
     }
 
 
-
-
 }
