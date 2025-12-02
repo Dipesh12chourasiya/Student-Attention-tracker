@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.irlstudentattentiontracker.fragments.HomeFragment"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/navigation_create_timetable"
+        android:name="com.example.irlstudentattentiontracker.fragments.CreateTimetableFragment"
+        android:label="Create Timetable" />
+
+    <fragment
+        android:id="@+id/navigation_view_timetable"
+        android:name="com.example.irlstudentattentiontracker.fragments.ViewTimetableFragment"
+        android:label="View Timetable" />
+
+    <fragment
+        android:id="@+id/navigation_start_session"
+        android:name="com.example.irlstudentattentiontracker.fragments.StartSessionFragment"
+        android:label="Start Session" />
+
+    <fragment
+        android:id="@+id/navigation_todays_report"
+        android:name="com.example.irlstudentattentiontracker.fragments.DailyReportFragment"
+        android:label="Today's Report" />
+
+</navigation>

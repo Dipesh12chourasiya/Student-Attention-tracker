@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.irlstudentattentiontracker.HomeActivity
 import com.example.irlstudentattentiontracker.MainActivity
+import com.example.irlstudentattentiontracker.MasterActivity
 
 import com.example.irlstudentattentiontracker.databinding.ActivityLoginBinding
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             if (success) {
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                 // intent lagao to home screen
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, MasterActivity::class.java))
                 finish()
             }
         }

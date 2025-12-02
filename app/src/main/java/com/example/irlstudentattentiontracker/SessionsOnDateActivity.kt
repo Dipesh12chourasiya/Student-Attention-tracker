@@ -58,6 +58,11 @@ class SessionsOnDateActivity : AppCompatActivity() {
             }
         )
 
+        // Back button in TopAppBar
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
         binding.rvSessions.layoutManager = LinearLayoutManager(this)
         binding.rvSessions.adapter = adapter
 
@@ -183,5 +188,7 @@ class SessionsOnDateActivity : AppCompatActivity() {
 // Legend color
         binding.lineChart.legend.textColor = textColor
     }
+
+
 
 }

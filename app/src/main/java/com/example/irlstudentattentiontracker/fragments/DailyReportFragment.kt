@@ -1,49 +1,54 @@
-package com.example.irlstudentattentiontracker
+package com.example.irlstudentattentiontracker.fragments
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.detectfaceandexpression.adapters.SessionAdapter
 import com.example.detectfaceandexpression.models.SessionData
-import com.example.irlstudentattentiontracker.databinding.ActivityDailyReportBinding
+import com.example.irlstudentattentiontracker.R
+import com.example.irlstudentattentiontracker.databinding.FragmentDailyReportBinding
 import com.example.irlstudentattentiontracker.viewmodel.UserViewModel
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
-class DailyReportActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDailyReportBinding
+class DailyReportFragment : Fragment() {
+
+    private var _binding: FragmentDailyReportBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: UserViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityDailyReportBinding.inflate(layoutInflater)
-        this.window.statusBarColor = Color.BLUE
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDailyReportBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // Back button
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Back button in toolbar
         binding.topAppBar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         val todayDateOnly = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(Date())
-//        val todayDateOnly = "16 July 2025"
 
         lifecycleScope.launch {
             viewModel.getAllSessionsForUser().collect { allSessions ->
@@ -68,9 +73,7 @@ class DailyReportActivity : AppCompatActivity() {
         }
     }
 
-
     private fun displayHeaderStats(sessions: List<SessionData>) {
-        // Show today's date
         binding.tvDate.text =
             "Date: " + SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(Date())
 
@@ -79,8 +82,6 @@ class DailyReportActivity : AppCompatActivity() {
 
         for (session in sessions) {
             val durationStr = session.duration ?: continue
-
-            // Parse optional hours, minutes, and seconds using regex
             val regex = Regex("(?:(\\d+)h)?\\s*(?:(\\d+)m)?\\s*(?:(\\d+)s)?")
             val match = regex.find(durationStr)
 
@@ -88,14 +89,12 @@ class DailyReportActivity : AppCompatActivity() {
                 val hours = match.groupValues[1].toIntOrNull() ?: 0
                 val minutes = match.groupValues[2].toIntOrNull() ?: 0
                 val seconds = match.groupValues[3].toIntOrNull() ?: 0
-
                 totalSeconds += hours * 3600 + minutes * 60 + seconds
             }
 
             totalAttention += session.attentionPercent?.toFloat() ?: 0f
         }
 
-        // Convert totalSeconds to hh:mm:ss
         val totalHours = totalSeconds / 3600
         val remainingSeconds = totalSeconds % 3600
         val totalMinutes = remainingSeconds / 60
@@ -113,27 +112,18 @@ class DailyReportActivity : AppCompatActivity() {
         binding.tvAttentionPercent.text = "Overall Attention: ${"%.1f".format(avgAttention)}%"
     }
 
-
-
     private fun setupLineChart(sessions: List<SessionData>) {
+        // Map sessions to chart entries
         val entries = sessions.mapIndexed { index, session ->
-            Log.d(
-                "LineChartDebug",
-                "title=${session.title}, attentionPercent=${session.attentionPercent}"
-            )
+            Log.d("LineChartDebug", "title=${session.title}, attentionPercent=${session.attentionPercent}")
             Entry(index.toFloat(), session.attentionPercent?.toFloat() ?: 0f)
         }
 
-        val isDarkMode = resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-
-        val textColor = if (isDarkMode) Color.WHITE else Color.BLACK
-
+        // Create dataset
         val dataSet = LineDataSet(entries, "Attention %").apply {
             setDrawFilled(true)
             fillAlpha = 150
-            fillDrawable =
-                ContextCompat.getDrawable(this@DailyReportActivity, R.drawable.chart_gradient)
+            fillDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.chart_gradient)
             color = Color.BLUE
             valueTextColor = Color.BLACK
             lineWidth = 2f
@@ -142,52 +132,52 @@ class DailyReportActivity : AppCompatActivity() {
             valueFormatter = PercentFormatter()
         }
 
-        val lineData = LineData(dataSet)
+        // Detect dark mode
+        val isDarkMode = resources.configuration.uiMode and
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK ==
+                android.content.res.Configuration.UI_MODE_NIGHT_YES
 
+        val textColor = if (isDarkMode) Color.WHITE else Color.BLACK
+
+        // Apply chart settings
         binding.lineChart.apply {
-            data = lineData
+            data = LineData(dataSet)
             description.isEnabled = false
+
             axisLeft.apply {
                 axisMinimum = 0f
                 axisMaximum = 100f
                 granularity = 10f
+                this.textColor = textColor
             }
+
             axisRight.isEnabled = false
-            xAxis.granularity = 1f
-            xAxis.setDrawLabels(false) // optional: hide index numbers
+
+            xAxis.apply {
+                granularity = 1f
+                setDrawLabels(false)
+                this.textColor = textColor
+            }
+
+            legend.textColor = textColor
+
             invalidate()
         }
 
-        // Set value text color for dataset
+        // Set dataset value text color
         dataSet.valueTextColor = textColor
-
-// Axis label color
-        val xAxis = binding.lineChart.xAxis
-        xAxis.textColor = textColor
-
-        val leftAxis = binding.lineChart.axisLeft
-        leftAxis.textColor = textColor
-
-        val rightAxis = binding.lineChart.axisRight
-        rightAxis.textColor = textColor
-
-// Legend color
-        binding.lineChart.legend.textColor = textColor
     }
 
 
     private fun setupRecyclerView(sessions: List<SessionData>) {
         val adapter = SessionAdapter(
             onItemClick = { session ->
-                val intent = Intent(this, SessionDetailActivity::class.java)
-                intent.putExtra(
-                    "session_data",
-                    session
-                ) // session must be Serializable or Parcelable
+                val intent = android.content.Intent(requireContext(), com.example.irlstudentattentiontracker.SessionDetailActivity::class.java)
+                intent.putExtra("session_data", session)
                 startActivity(intent)
             },
             onItemLongClick = { session ->
-                AlertDialog.Builder(this)
+                AlertDialog.Builder(requireContext())
                     .setTitle("Delete Session")
                     .setMessage("Are you sure you want to delete \"${session.title}\"?")
                     .setPositiveButton("Yes") { _, _ ->
@@ -198,8 +188,13 @@ class DailyReportActivity : AppCompatActivity() {
             }
         )
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
         adapter.differ.submitList(sessions.reversed())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

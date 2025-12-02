@@ -10,6 +10,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
@@ -117,6 +118,16 @@ class MainActivity : AppCompatActivity() {
 
             binding.btnStartSession.visibility = View.VISIBLE
             binding.btnEndSession.visibility = View.GONE
+        }
+
+
+        // Handle back press using OnBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(this) {
+            val intent = Intent(this@MainActivity, MasterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            intent.putExtra("openHomeFragment", true) // pass a flag
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -308,7 +319,10 @@ Attentive Score: $attentionScore/2
             }
             mediaPlayer = null
         }
+
+
     }
+
 }
 
 

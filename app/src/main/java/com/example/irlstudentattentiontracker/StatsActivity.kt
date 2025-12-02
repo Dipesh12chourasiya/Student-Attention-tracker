@@ -92,7 +92,7 @@ class StatsActivity : AppCompatActivity() {
             binding.etAddNote.setText("")
 
             Toast.makeText(this, "Session saved!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, MasterActivity::class.java))
         }
 
     }

@@ -71,7 +71,7 @@ class SplashActivity : AppCompatActivity() {
 
             if (currentUser != null) {
                 // User already logged in
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, MasterActivity::class.java))
             } else {
                 // User not logged in
                 startActivity(Intent(this, LoginActivity::class.java))
