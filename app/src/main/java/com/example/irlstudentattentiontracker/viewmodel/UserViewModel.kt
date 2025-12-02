@@ -281,12 +281,23 @@ No intro or conclusion. 12-hour format.
 
 //        Message("user", "Generate a Whole Day timetable for today in points. Subjects: $userInput")
 
+//        val request = ChatRequest(
+//            messages = listOf(
+////                Message("user", prompt)
+//                Message("user", "Generate a Whole Day timetable for today in points. i wake up at:$wakeUpTime, sleep at $sleepTime Subjects: $subjects, dont add intro or conclusion. 12-hour format.")
+//            )
+//        )
+
         val request = ChatRequest(
+            model = "openai/gpt-4o-mini",
             messages = listOf(
-//                Message("user", prompt)
-                Message("user", "Generate a Whole Day timetable for today in points. i wake up at:$wakeUpTime, sleep at $sleepTime Subjects: $subjects, dont add intro or conclusion. 12-hour format.")
+                Message(
+                    role = "user",
+                    content = prompt
+                )
             )
         )
+
 
         RetrofitClient.api.getChatCompletion(request).enqueue(object : Callback<ChatResponse> {
             override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
