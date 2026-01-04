@@ -3,28 +3,49 @@ package com.example.irlstudentattentiontracker.fragments
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.irlstudentattentiontracker.databinding.FragmentViewTimetableBinding
+import com.example.irlstudentattentiontracker.viewmodel.NinjaQuoteVM
 import io.noties.markwon.Markwon
 
 class ViewTimetableFragment : Fragment() {
 
     private var _binding: FragmentViewTimetableBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: NinjaQuoteVM
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentViewTimetableBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
+    private fun fetchQuotes() {
+        viewModel.quoteLiveData.observe(viewLifecycleOwner) { quote ->
+            binding.tvQuoteText.text = "\"${quote.quote}\""
+            binding.tvQuoteAuthor.text = "- ${quote.author}"
+        }
+    }
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[NinjaQuoteVM::class.java]
+
+        fetchQuotes() // observe LiveData
+        viewModel.getQuote() // trigger API call
+
 
         // Back button
         binding.topAppBar.setNavigationOnClickListener {
